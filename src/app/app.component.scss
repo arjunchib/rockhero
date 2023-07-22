@@ -1,0 +1,19 @@
+tr:nth-of-type(2n) {
+  @apply bg-slate-200;
+}
+
+th {
+  @apply text-start;
+}
+
+td {
+  @apply p-1;
+
+  &:first-of-type {
+    @apply rounded-s;
+  }
+
+  &:last-of-type {
+    @apply rounded-e;
+  }
+}
