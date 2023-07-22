@@ -1,1 +1,19 @@
-<app-songs></app-songs>
+<div class="m-4">
+  <input
+    [formControl]="search"
+    type="search"
+    placeholder="search"
+    class="px-2 leading-8"
+  />
+</div>
+<div class="m-4">
+  <table class="w-full">
+    <tr *ngFor="let song of songs">
+      <td>{{ song.artist }}</td>
+      <td>{{ song.title }}</td>
+      <td>{{ song.year }}</td>
+      <td>{{ song.num_players }}</td>
+      <td>{{ song.game }}</td>
+    </tr>
+  </table>
+</div>
