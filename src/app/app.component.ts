@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { songs } from './data/songs';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs';
@@ -15,6 +21,15 @@ export class AppComponent implements OnInit {
     Object.values(song).join(' ').toLowerCase()
   );
   search = new FormControl('');
+
+  @ViewChild('searchEl') searchInput?: ElementRef<HTMLInputElement>;
+
+  @HostListener('window:keydown', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (event.key === 'k' && event.metaKey) {
+      this.searchInput?.nativeElement.focus();
+    }
+  }
 
   ngOnInit(): void {
     this.search.valueChanges.pipe(debounceTime(300)).subscribe((value) => {
