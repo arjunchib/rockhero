@@ -17,3 +17,7 @@ td {
     @apply rounded-e;
   }
 }
+
+.song {
+  @apply rounded bg-slate-200 my-2 p-2 leading-tight relative;
+}

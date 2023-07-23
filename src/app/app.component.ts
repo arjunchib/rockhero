@@ -9,6 +9,8 @@ import { songs } from './data/songs';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 
+type Song = (typeof songs)[number];
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -35,6 +37,18 @@ export class AppComponent implements OnInit {
     this.search.valueChanges.pipe(debounceTime(300)).subscribe((value) => {
       value ? this.filterSongs(value) : (this.songs = songs);
     });
+  }
+
+  get isMobile() {
+    return document.body.clientWidth < 600;
+  }
+
+  get isDesktop() {
+    return !this.isMobile;
+  }
+
+  dots(song: Song) {
+    return new Array(song.num_players).fill('⦿').join('');
   }
 
   private filterSongs(value: string) {
