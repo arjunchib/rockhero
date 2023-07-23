@@ -9,23 +9,27 @@
 </div>
 <div class="m-4 mt-2 text-slate-950">
   <table *ngIf="isDesktop" class="w-full table-fixed">
-    <tr>
-      <th>Artist</th>
-      <th>Title</th>
-      <th class="w-12">Year</th>
-      <th>Game</th>
-      <th>Players</th>
-    </tr>
-    <tr *ngFor="let song of songs">
-      <td>{{ song.artist }}</td>
-      <td>{{ song.title }}</td>
-      <td class="font-mono">{{ song.year }}</td>
-      <td>{{ song.game }}</td>
-      <td>{{ song.num_players_long }}</td>
-    </tr>
+    <thead>
+      <tr>
+        <th>Artist</th>
+        <th>Title</th>
+        <th class="w-12">Year</th>
+        <th>Game</th>
+        <th>Players</th>
+      </tr>
+    </thead>
+    <tbody (click)="onClick($event)">
+      <tr *ngFor="let song of songs">
+        <td>{{ song.artist }}</td>
+        <td>{{ song.title }}</td>
+        <td class="font-mono">{{ song.year }}</td>
+        <td>{{ song.game }}</td>
+        <td>{{ song.num_players_long }}</td>
+      </tr>
+    </tbody>
   </table>
   <div *ngIf="isMobile">
-    <div *ngFor="let song of songs" class="song">
+    <div *ngFor="let song of songs" class="song" (click)="onClick($event)">
       <div class="basis-0 min-w-0 flex-grow">
         <div class="truncate">
           <i

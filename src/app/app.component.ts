@@ -10,6 +10,7 @@ import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 
 type Song = (typeof songs)[number];
+const PLAYER_CHAR = '⦿';
 
 @Component({
   selector: 'app-root',
@@ -34,9 +35,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.search.valueChanges.pipe(debounceTime(300)).subscribe((value) => {
-      value ? this.filterSongs(value) : (this.songs = songs);
-    });
+    this.search.valueChanges
+      .pipe(debounceTime(300))
+      .subscribe((value) => this.filterSongs(value));
   }
 
   get isMobile() {
@@ -48,10 +49,24 @@ export class AppComponent implements OnInit {
   }
 
   dots(song: Song) {
-    return new Array(song.num_players).fill('⦿').join('');
+    return new Array(song.num_players).fill(PLAYER_CHAR).join('');
   }
 
-  private filterSongs(value: string) {
+  onClick(e: MouseEvent) {
+    const target = e.target as HTMLElement;
+    let searchText = target.innerText;
+    if (searchText.startsWith(PLAYER_CHAR)) {
+      searchText = `${searchText.length}p`;
+    }
+    this.search.setValue(searchText, { emitEvent: false });
+    this.filterSongs(searchText);
+  }
+
+  private filterSongs(value: string | null): void {
+    if (!value) {
+      this.songs = songs;
+      return;
+    }
     this.songs = songs.filter((song, i) =>
       this.songVectors[i].includes(value.toLowerCase())
     );
