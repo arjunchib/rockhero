@@ -1,4 +1,4 @@
-<div class="mx-4 mt-2 py-2 sticky top-0 flex justify-center">
+<div class="mx-4 mt-2 py-2 sticky top-0 flex justify-center z-10">
   <input
     #searchEl
     [formControl]="search"
@@ -26,17 +26,23 @@
   </table>
   <div *ngIf="isMobile">
     <div *ngFor="let song of songs" class="song">
-      <div class="absolute top-2 right-2">{{ dots(song) }}</div>
-      <i
-        ><b>
-          {{ song.title }}
-        </b>
-        - <span class="font-mono">{{ song.year }}</span></i
-      >
-      <br />
-      {{ song.artist }}
-      <br />
-      <small>{{ song.game }}</small>
+      <div class="basis-0 min-w-0 flex-grow">
+        <div class="truncate">
+          <i
+            ><b>{{ song.title }}</b></i
+          >
+        </div>
+        <div class="truncate">
+          {{ song.artist }}
+        </div>
+        <small class="text-gray-500">{{ song.game }}</small>
+      </div>
+      <div class="text-end flex flex-col justify-between">
+        <div class="font-mono text-gray-400">
+          {{ song.year }}
+        </div>
+        <div>{{ dots(song) }}</div>
+      </div>
     </div>
   </div>
 </div>
