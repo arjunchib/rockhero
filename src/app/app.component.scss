@@ -21,3 +21,7 @@ td {
 .song {
   @apply rounded bg-slate-200 my-2 p-2 leading-tight relative flex justify-between;
 }
+
+[type="search"] {
+  -webkit-appearance: auto;
+}
